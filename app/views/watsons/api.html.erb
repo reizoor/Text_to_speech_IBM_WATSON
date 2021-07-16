@@ -1,0 +1,32 @@
+<div class="container-sm pt-3">
+    <h2 class="pb-2">Entrada de datos</h2>
+    <%= render 'form', url: watson_api_path, voice: @list, method: :get %>
+</div>
+<div class="container-sm pt-3">
+    <div class="col-12 pb-3">
+        <h2>Audio a reproducir</h2>
+    </div>
+    <div class="col-12 pt-3">
+        <audio controls>
+                <source src="audios/hello_world.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    
+</div>
+<%if false%>
+<div class="container-sm pt-4">
+    <%if @respond %>
+    <h2>Resultados</h2>
+        <div class="container-sm">
+            <%if @respond["concepts"]%>
+                <%= render partial: 'layouts/text'%>
+            <% elsif @respond["relations"]%>
+                <%= render partial: 'layouts/textless'%>
+            <%end%>
+        </div>
+    <% end %>
+</div>
+<% end %>
+
+    
+    

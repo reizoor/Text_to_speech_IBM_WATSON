@@ -1,0 +1,139 @@
+<div class="d-flex align-items-start">
+  <div class="col-2">
+  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Categorias</button>
+    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Conceptos</button>
+    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Palabras clave</button>
+  </div>
+  </div>
+  <div class="col-10">
+  <div class="tab-content" id="v-pills-tabContent">
+    <%#  Sección de categorias %>
+    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col-sm">Jerarquía</th>
+                <th scope="col-sm">Puntaje</th>
+              </tr>
+            </thead>
+            <% @respond["categories"].each do |respond| %>  
+            <tbody>
+              <tr>
+                <td><%= respond["label"] %></td>
+                <td><%= respond["score"]%></td>
+              </tr>
+            </tbody>
+            <%end%>
+        </table>
+    </div>
+    
+    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+    <%#  Sección de Conceptos %>
+      <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col-sm">Concepto</th>
+                <th scope="col-sm">Puntaje</th>
+              </tr>
+            </thead>
+            <% @respond["concepts"].each do |respond| %>  
+            <tbody>
+              <tr>
+                <td><%= respond["text"] %></td>
+                <td><%= respond["relevance"]%></td>
+              </tr>
+            </tbody>
+            <%end%>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+    <%#  Sección de Emociones %>
+    
+    </div>
+    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+    <%#  Sección de Palabras clave %>
+      <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col-sm">Concepto</th>
+                
+                <th scope="col-sm">Puntaje</th>
+              </tr>
+            </thead>
+            <% @respond["keywords"].each do |respond| %>  
+            <tbody>
+              <tr>
+                <td><%= respond["text"]%></td>
+                <td><%= respond["relevance"]%></td>
+              </tr>
+            </tbody>
+            <%end%>
+      </table>
+      <h2 class="pt-2 pb-2 text-primary">Emociones</h2>
+      <% @respond["keywords"].each do |reskey|%>
+        <div class="row pb-3">
+          <h3><%=reskey["text"]%></h3>
+          <div class="row">
+            <div class="col-2">
+              <h5><%=reskey["emotion"].keys[0]%></h5>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+              <p class="pr-0 pl-0"><%=reskey["emotion"]["sadness"]*100%></p>
+            </div>
+            <div class="col-8">
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="width: <%=reskey["emotion"]["sadness"]*100%>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-2">
+            <h5><%=reskey["emotion"].keys[1]%></h5>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+              <p class="pr-0 pl-0"><%=reskey["emotion"]["joy"]*100%></p>
+            </div>
+            <div class="col-8">
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="width: <%=reskey["emotion"]["joy"]*100%>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-2">
+              <h5><%=reskey["emotion"].keys[2]%></h5>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+              <p class="pr-0 pl-0"><%=reskey["emotion"]["fear"]*100%></p>
+            </div>
+            <div class="col-8">
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="width: <%=reskey["emotion"]["fear"]*100%>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-2">
+              <h5><%=reskey["emotion"].keys[3]%></h5>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+              
+              <p class="pr-0 pl-0"><%=reskey["emotion"]["disgust"]*100%></p>
+            </div>
+            <div class="col-8"style="height: 20px;">
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="width: <%=reskey["emotion"]["disgust"]*100%>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-2">
+              <h5><%=reskey["emotion"].keys[4]%></h5>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+              <p class="pr-0 pl-0"><%=reskey["emotion"]["anger"]*100%></p>
+            </div>
+            <div class="col-8"style="height: 20px;">
+                <div class="progress" style="height: 20px;">
+                  <div class="progress-bar" role="progressbar" style="width: <%=reskey["emotion"]["anger"]*100%>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>

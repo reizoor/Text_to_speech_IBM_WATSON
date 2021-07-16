@@ -1,0 +1,45 @@
+<%= form_with(local: true, url: url, method: method) do |form| %>
+<% if false %> 
+
+  <% if watson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(watson.errors.count, "error") %> prohibited this watson from being saved:</h2>
+
+      <ul>
+      <% watson.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+    <div class="field">
+      <div class="row">
+        <div class="col-4">
+          <%= form.label :voice, "Voz de preferencia para su texto a traducir", class:"" %>
+          
+        </div>
+        <div class="col-6 ">
+          <%= form.select :voice , voice,{ include_blank: true }, required: true, class:"form-select" %>
+          
+        </div>
+      </div>
+    </div>
+      <div class="field">
+        <div class="col-12 p-2">
+          <%= form.label :text, "Texto a traducir" %>
+
+        <div class="col-12 p-2">
+          <%= form.text_area :text,  class:"form-control",rows: 7%>
+          
+        </div>
+        <div class="col-12 p-2">
+          <%= form.submit "Procesar", class:"btn btn-dark" %>
+        </div>
+       
+        
+      </div>
+    </div>
+    
+
+<%end%>

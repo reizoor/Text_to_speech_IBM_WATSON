@@ -1,0 +1,71 @@
+<div class="d-flex align-items-start">
+  <div class="col-2">
+  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Entidades</button>
+    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Semántica</button>
+  </div>
+  </div>
+  <div class="col-10">
+  <div class="tab-content" id="v-pills-tabContent">
+    <%#  Sección de entidades %>
+    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+    <%if !@respond["relations"].empty?%>
+        <div class="row pb-3 ">
+        
+            <h3>Parrafo analizado</h3>
+            <h5><%= @respond["relations"][0]["sentence"]%></h5>
+        </div>
+        <div class="row pb-3 pt-2">
+            <h3>Tipo que pertenece el parrafo</h3>
+            <h5><%= @respond["relations"][0]["type"]%></h5>
+        </div>
+        <h3>Entidades</h3>
+        <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col-sm">Palabra</th>
+                <th scope="col-sm">Relación</th>
+              </tr>
+            </thead>
+            <% @respond["relations"][0]["arguments"].each do |respond| %>  
+            <tbody>
+              <tr>
+                <td><%= respond["entities"][0]["text"] %></td>
+                <td><%= respond["entities"][0]["type"]%></td>
+              </tr>
+            </tbody>
+            <%end%>
+        </table>
+    <%end%>
+    <div class="row pb-3 ">
+        <h3>No se han encontrado relaciones</h3>
+    </div>
+    </div>
+    
+    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+    <%#  Sección de Semantica %>
+        
+        <div class="row pb-3">
+            <h3>Parrafo analizado</h3>
+            <h5><%= @respond["semantic_roles"][0]["sentence"]%></h5>
+        </div>
+        <div class="row pb-3">
+            <div class="col-4 pb-3">
+                <h3>Sujetos</h3>
+                <h5><%= @respond["semantic_roles"][0]["subject"]["text"]%></h5>
+            </div>
+            <div class="col-4 pb-3">
+                <h3>Objeto directo</h3>
+                <h5><%= @respond["semantic_roles"][0]["object"]["text"]%></h5>
+            </div>
+            <div class="col-4 pb-3 d-flex justify-content-end">
+                <div class="">
+                    <h3>Verbo</h3>
+                    <h5><%= @respond["semantic_roles"][0]["action"]["text"]%></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  </div>
+</div>
