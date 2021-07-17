@@ -17,7 +17,7 @@ class WatsonsController < ApplicationController
     @list = Array.new
     if @voices
       @voices.each do |v|
-        @list.push(v["description"]).desc
+        @list.push(v["description"])
       end
     end
   end
