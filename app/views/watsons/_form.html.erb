@@ -1,4 +1,6 @@
 <%= form_with(local: true, url: url, method: method) do |form| %>
+
+
 <% if false %> 
 
   <% if watson.errors.any? %>
@@ -13,33 +15,104 @@
     </div>
   <% end %>
 <% end %>
+  <h3>Traductor</h3>
+  <div class="container">
     <div class="field">
       <div class="row">
-        <div class="col-4">
-          <%= form.label :voice, "Voz de preferencia para su texto a traducir", class:"" %>
-          
+        <div class="col-6">
+          <%= form.label :tran, "Idioma del texto", class:"" %>
         </div>
-        <div class="col-6 ">
-          <%= form.select :voice , voice,{ include_blank: true }, required: true, class:"form-select" %>
-          
+        <div class="col-6">
+          <%= form.label :tran, "Idioma a traducir", class:"" %>
+        </div>
+        <div class="col-6">
+          <%= form.select :tran1 , options_for_select(tran, params[:tran1]), { include_blank: true }, required: true, class:"form-select" %>
+        </div>
+        <div class="col-6">
+          <%= form.select :tran2 , options_for_select(tran, params[:tran2]), { include_blank: true }, required: true, class:"form-select" %>
         </div>
       </div>
     </div>
-      <div class="field">
-        <div class="col-12 p-2">
+  </div>
+  <div class="container">
+    <% if transl != false && (params[:voice2] && params[:voice1])%>
+      <div class="row">
+        <div class="col-6 p-2">
           <%= form.label :text, "Texto a traducir" %>
-
-        <div class="col-12 p-2">
-          <%= form.text_area :text,  class:"form-control",rows: 7%>
-          
         </div>
-        <div class="col-12 p-2">
-          <%= form.submit "Procesar", class:"btn btn-dark" %>
+        <div class="col-6 p-2">
+          <%= form.label :text, "Texto traducido" %>
         </div>
-       
-        
+        <div class="col-6 p-2">
+          <%= form.text_area :text, rows: 5, value: params[:text], class:"form-control"%>
+        </div>
+        <div class="col-6 p-2">
+          <%= form.text_area :text, rows: 5, value: transl, disabled: true, class:"form-control"%>
+        </div>
+      </div>
+      <div class="container-sm pt-3">
+        <div class="row">
+        <div class="col-6 pt-3">
+            <audio controls>
+                    <source src="audios/hello_world1.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="col-6 pt-3">
+            <audio controls>
+                    <source src="audios/hello_world2.mp3" type="audio/mp3">
+            </audio>
+        </div>
+      </div>
+    <%else%>
+      <div class="field">
+        <div class="col-6 p-2">
+          <%= form.label :text, "Texto a traducir" %>
+        </div>
+        <div class="row">
+          <div class="col-6 p-2">
+            <%= form.text_area :text, rows: 5, value: params[:text], class:"form-control"%>
+          </div>
+        <%if transl == false %>
+          <div class="col-6 p-2">
+            <h4>No hay traducción de <%= params[:tran1]%> a <%= params[:tran2]%> en este modelo</h4>
+          </div>
+        </div>
+          <div class="container-sm pt-3">
+            <div class="row">
+            <div class="col-6 pt-3">
+                <audio controls>
+                        <source src="audios/hello_world1.mp3" type="audio/mp3">
+                </audio>
+            </div>
+            </div>
+          </div>
+        <%end%>
+        </div>
+    <%end%>
+  </div>
+  <h3>Traducir a voz</h3>
+  <div class="container">
+    <div class="field">
+      <div class="row">
+        <div class="col-6">
+          <%= form.label :tran, "Voz de preferencia para su texto a traducir", class:"" %>
+        </div>
+        <div class="col-6">
+          <%= form.label :tran, "Voz de preferencia para su texto traducido", class:"" %>
+        </div>
+        <div class="col-6">
+          <%= form.select :voice1 , options_for_select(voice, params[:voice1]),{ include_blank: true }, required: true, class:"form-select" %>
+        </div>
+        <div class="col-6">
+          <%= form.select :voice2 , options_for_select(voice, params[:voice2]),{ include_blank: true }, required: true, class:"form-select" %>
+        </div>
       </div>
     </div>
+  </div>
+  
+
+  
+  <%= form.submit "Procesar", class:"btn btn-dark mt-3" %>
     
 
 <%end%>
